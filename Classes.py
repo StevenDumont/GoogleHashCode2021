@@ -7,7 +7,6 @@ class Street:
         self.dest = destination
         self.time = time
 
-
 # class TrafficLight:
 #     def __init__(self, initial_state):
 #         self.state = initial_state
@@ -25,3 +24,4 @@ class Intersection:
         self.istreets = []
         self.ostreets = []
         self.open_street = 0
+        self.weights = []

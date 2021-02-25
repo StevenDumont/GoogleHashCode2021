@@ -56,9 +56,33 @@ if __name__ == '__main__':
         for car in cars:
             print("Car path: " + str(car.path))
 
+    frequencies = {}
+    for c in cars:
+        for p in c.path:
+            if not p in frequencies.keys():
+                frequencies[p] = 0
+            else:
+                frequencies[p] += 1
+
+    for inter in intersections:
+        inter.weights = [0] * len(inter.istreets)
+        for i, street in enumerate(inter.istreets):
+            if street.name in frequencies.keys():
+                inter.weights[i] = frequencies[street.name]
+            else:
+                inter.weights[i] = 0
+
+        if all(v == 0 for v in inter.weights) or len(inter.istreets) == 0:
+            inter.weights = [1] * len(inter.istreets)
+            continue
+
+        m = min([v for v in inter.weights if v != 0])
+        for i, w in enumerate(inter.weights):
+            inter.weights[i] = round(w / m)
+
     print(len(intersections))
     for inter in intersections:
         print(inter.id)
         print(len(inter.istreets))
-        for street in inter.istreets:
-            print(street.name, 1)
+        for street, weight in zip(inter.istreets, inter.weights):
+            print(street.name, weight)
