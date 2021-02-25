@@ -46,3 +46,19 @@ def get_args():
 
 if __name__ == '__main__':
     streets, intersections, cars = get_args()
+    debug = False
+    if debug:
+        for street in streets:
+            print("Street: " + street.name)
+        for intersection in intersections:
+            print("Intersection: " + str(intersection.id) +
+                  " " + str(intersection.open_street))
+        for car in cars:
+            print("Car path: " + str(car.path))
+
+    print(len(intersections))
+    for inter in intersections:
+        print(inter.id)
+        print(len(inter.istreets))
+        for street in inter.istreets:
+            print(street.name, 1)
