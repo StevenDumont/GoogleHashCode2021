@@ -65,24 +65,25 @@ if __name__ == '__main__':
                 frequencies[p] += 1
 
     for inter in intersections:
-        inter.weights = [0] * len(inter.istreets)
-        for i, street in enumerate(inter.istreets):
-            if street.name in frequencies.keys():
-                inter.weights[i] = frequencies[street.name]
-            else:
-                inter.weights[i] = 0
+        inter.weights = [1] * len(inter.istreets)
+        # for i, street in enumerate(inter.istreets):
+        #     if street.name in frequencies.keys():
+        #         inter.weights[i] = frequencies[street.name]
+        #     else:
+        #         inter.weights[i] = 0
+        # 
+        # if all(v == 0 for v in inter.weights) or len(inter.istreets) == 0:
+        #     inter.weights = [1] * len(inter.istreets)
+        #     continue
+        # 
+        # m = min([v for v in inter.weights if v != 0])
+        # for i, w in enumerate(inter.weights):
+        #     inter.weights[i] = min(round(w / m), 2)
 
-        if all(v == 0 for v in inter.weights) or len(inter.istreets) == 0:
-            inter.weights = [1] * len(inter.istreets)
-            continue
-
-        m = min([v for v in inter.weights if v != 0])
-        for i, w in enumerate(inter.weights):
-            inter.weights[i] = round(w / m)
-
-    print(len(intersections))
+    print(len([i for i in intersections if any(w != 0 for w in i.weights)]))
     for inter in intersections:
         print(inter.id)
-        print(len(inter.istreets))
+        print(len([w for w in inter.weights if w != 0]))
         for street, weight in zip(inter.istreets, inter.weights):
-            print(street.name, weight)
+            if weight:
+                print(street.name, weight)
