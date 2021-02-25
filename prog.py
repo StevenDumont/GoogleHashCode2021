@@ -56,9 +56,9 @@ if __name__ == '__main__':
         for car in cars:
             print("Car path: " + str(car.path))
 
-    print(len(intersections) - 1)
+    print(len(intersections))
     for inter in intersections:
         print(inter.id)
-        print(len(inter.istreets) - 1)
+        print(len(inter.istreets))
         for street in inter.istreets:
             print(street.name, 1)
